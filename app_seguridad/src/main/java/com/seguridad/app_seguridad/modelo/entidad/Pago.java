@@ -1,7 +1,5 @@
 package com.seguridad.app_seguridad.modelo.entidad;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,9 +15,9 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double monto;
+    private double monto;
     private String metodo;
-    private LocalDate fecha;
+    private java.time.LocalDate fecha;
 
     @ManyToOne
     private Cliente cliente;
@@ -35,11 +33,11 @@ public class Pago {
 		this.id = id;
 	}
 
-	public Double getMonto() {
+	public double getMonto() {
 		return monto;
 	}
 
-	public void setMonto(Double monto) {
+	public void setMonto(double monto) {
 		this.monto = monto;
 	}
 
@@ -51,11 +49,11 @@ public class Pago {
 		this.metodo = metodo;
 	}
 
-	public LocalDate getFecha() {
+	public java.time.LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(java.time.LocalDate fecha) {
 		this.fecha = fecha;
 	}
 
@@ -76,5 +74,6 @@ public class Pago {
 	}
 
     // getters y setters
+
 	
 }

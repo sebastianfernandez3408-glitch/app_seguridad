@@ -1,7 +1,6 @@
 package com.seguridad.app_seguridad.modelo.entidad;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.seguridad.app_seguridad.modelo.entidad.enums.EstadoContratacion;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,19 +20,19 @@ public class Contratacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private EstadoContratacion estado;
-
-    private LocalDate fecha;
-
     @ManyToOne
     private Cliente cliente;
 
     @ManyToOne
     private Servicio servicio;
 
+    @Enumerated(EnumType.STRING)
+    private EstadoContratacion estado;
+
+    private java.time.LocalDate fecha;
+
     @OneToMany(mappedBy = "contratacion")
-    private List<Pago> pagos;
+    private java.util.List<Pago> pagos;
 
 	public Long getId() {
 		return id;
@@ -41,22 +40,6 @@ public class Contratacion {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public EstadoContratacion getEstado() {
-		return estado;
-	}
-
-	public void setEstado(EstadoContratacion estado) {
-		this.estado = estado;
-	}
-
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
 	}
 
 	public Cliente getCliente() {
@@ -75,14 +58,31 @@ public class Contratacion {
 		this.servicio = servicio;
 	}
 
-	public List<Pago> getPagos() {
+	public EstadoContratacion getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoContratacion estado) {
+		this.estado = estado;
+	}
+
+	public java.time.LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(java.time.LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+	public java.util.List<Pago> getPagos() {
 		return pagos;
 	}
 
-	public void setPagos(List<Pago> pagos) {
+	public void setPagos(java.util.List<Pago> pagos) {
 		this.pagos = pagos;
 	}
 
     // getters y setters
+
 	
 }

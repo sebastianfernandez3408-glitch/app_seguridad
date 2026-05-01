@@ -1,12 +1,9 @@
 package com.seguridad.app_seguridad.modelo.entidad;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,9 +15,6 @@ public class Instructor {
     private Long id;
 
     private String nombre;
-
-    @OneToMany(mappedBy = "instructor")
-    private List<ProgramaEntrenamiento> programas;
 
 	public Long getId() {
 		return id;
@@ -38,17 +32,7 @@ public class Instructor {
 		this.nombre = nombre;
 	}
 
-	public List<ProgramaEntrenamiento> getProgramas() {
-		return programas;
-	}
-
-	public void setProgramas(List<ProgramaEntrenamiento> programas) {
-		this.programas = programas;
-	}
-
     // getters y setters
 	
-}
-
-    
+}    
     

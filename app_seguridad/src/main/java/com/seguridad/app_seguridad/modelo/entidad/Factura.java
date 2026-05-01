@@ -1,7 +1,5 @@
 package com.seguridad.app_seguridad.modelo.entidad;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,8 +15,8 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double total;
-    private LocalDate fecha;
+    private double total;
+    private java.time.LocalDate fecha;
 
     @ManyToOne
     private Cliente cliente;
@@ -31,19 +29,19 @@ public class Factura {
 		this.id = id;
 	}
 
-	public Double getTotal() {
+	public double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Double total) {
+	public void setTotal(double total) {
 		this.total = total;
 	}
 
-	public LocalDate getFecha() {
+	public java.time.LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(java.time.LocalDate fecha) {
 		this.fecha = fecha;
 	}
 

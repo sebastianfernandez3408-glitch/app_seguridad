@@ -4,12 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "programas")
-public class ProgramaEntrenamiento {
+public class Programa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +19,10 @@ public class ProgramaEntrenamiento {
     private String nombre;
     private String descripcion;
     private String duracion;
-    private Double costo;
+    private double costo;
 
     @ManyToOne
+    @JoinColumn(name = "instructor_id")
     private Instructor instructor;
 
 	public Long getId() {
@@ -55,11 +57,11 @@ public class ProgramaEntrenamiento {
 		this.duracion = duracion;
 	}
 
-	public Double getCosto() {
+	public double getCosto() {
 		return costo;
 	}
 
-	public void setCosto(Double costo) {
+	public void setCosto(double costo) {
 		this.costo = costo;
 	}
 

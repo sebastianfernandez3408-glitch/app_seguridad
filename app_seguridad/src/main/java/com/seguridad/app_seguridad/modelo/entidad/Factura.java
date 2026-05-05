@@ -1,9 +1,11 @@
 package com.seguridad.app_seguridad.modelo.entidad;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -15,10 +17,14 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double total;
-    private java.time.LocalDate fecha;
+	@Column(nullable = false)
+	private double total;
+
+@	Column(nullable = false)
+	private java.time.LocalDate fecha;
 
     @ManyToOne
+	@JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
 	public Long getId() {

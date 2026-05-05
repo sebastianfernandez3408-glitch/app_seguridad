@@ -19,7 +19,7 @@ public class FacturaPdfServicio {
             PdfWriter.getInstance(documento, salida);
             documento.open();
 
-            // 🎨 TÍTULO
+            // TiULO
             Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
             Paragraph titulo = new Paragraph("FACTURA DE SERVICIO", fuenteTitulo);
             titulo.setAlignment(Element.ALIGN_CENTER);
@@ -27,14 +27,14 @@ public class FacturaPdfServicio {
             documento.add(titulo);
             documento.add(new Paragraph(" "));
 
-            // 📋 DATOS DEL CLIENTE
+            // DATOS DEL CLIENTE
             documento.add(new Paragraph("Cliente: " + factura.getCliente().getNombre()));
             documento.add(new Paragraph("Fecha: " + factura.getFecha()));
             documento.add(new Paragraph("Total: $" + factura.getTotal()));
 
             documento.add(new Paragraph(" "));
 
-            // 🧾 TABLA
+            //  TABLA
             PdfPTable tabla = new PdfPTable(2);
             tabla.setWidthPercentage(100);
 

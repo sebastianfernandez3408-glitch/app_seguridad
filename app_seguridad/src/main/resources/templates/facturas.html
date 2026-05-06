@@ -1,0 +1,21 @@
+<div class="container mt-4">
+    <h2>Facturas</h2>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Total</th>
+            <th>PDF</th>
+        </tr>
+
+        <tr th:each="f : ${facturas}">
+            <td th:text="${f.id}"></td>
+            <td th:text="${f.total}"></td>
+            <td>
+                <a th:href="@{/facturas/pdf/{id}(id=${f.id})}" class="btn btn-danger">
+                    Descargar PDF
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>

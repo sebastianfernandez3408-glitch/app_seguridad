@@ -1,0 +1,9 @@
+<div class="container mt-4">
+    <h2>Programas</h2>
+
+    <table class="table">
+        <tr th:each="p : ${programas}">
+            <td th:text="${p.nombre}"></td>
+        </tr>
+    </table>
+</div>

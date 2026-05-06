@@ -1,0 +1,17 @@
+<div class="container mt-4">
+    <h2>Servicios</h2>
+
+    <a href="/servicios/nuevo" class="btn btn-success">Nuevo</a>
+
+    <table class="table">
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+        </tr>
+
+        <tr th:each="s : ${servicios}">
+            <td th:text="${s.nombre}"></td>
+            <td th:text="${s.precio}"></td>
+        </tr>
+    </table>
+</div>

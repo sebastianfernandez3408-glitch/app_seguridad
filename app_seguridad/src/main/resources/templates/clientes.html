@@ -1,0 +1,22 @@
+<div class="container mt-4">
+    <h2>Clientes</h2>
+
+    <a href="/clientes/nuevo" class="btn btn-success mb-3">Nuevo</a>
+
+    <table class="table">
+        <tr>
+            <th>Nombre</th>
+            <th>Documento</th>
+            <th>Acciones</th>
+        </tr>
+
+        <tr th:each="c : ${clientes}">
+            <td th:text="${c.nombre}"></td>
+            <td th:text="${c.documento}"></td>
+            <td>
+                <a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/clientes/eliminar/{id}(id=${c.id})}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+    </table>
+</div>

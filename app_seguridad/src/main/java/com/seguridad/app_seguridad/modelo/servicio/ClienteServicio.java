@@ -31,20 +31,7 @@ public class ClienteServicio {
     }
 
     @Transactional
-    public Cliente actualizar(Long id, Cliente cliente) {
-        cliente.setId(id);
-        return clienteRepositorio.save(cliente);
-    }
-
-    @Transactional
     public void eliminar(Long id) {
         clienteRepositorio.deleteById(id);
-    }
-
-    public List<Cliente> buscarPorNombre(String nombre) {
-        return clienteRepositorio.findAll()
-                .stream()
-                .filter(c -> c.getNombre().toLowerCase().contains(nombre.toLowerCase()))
-                .toList();
     }
 }

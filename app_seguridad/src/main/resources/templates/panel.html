@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/encabezado :: encabezado"></head>
 <body>
 
-<h1>Bienvenido al sistema</h1>
+<div class="container mt-4">
+    <h2>Bienvenido <span th:text="${usuario.username}"></span></h2>
 
-<a href="/logout">Cerrar sesión</a>
+    <div class="row mt-4">
+        <a href="/clientes" class="btn btn-primary col m-2">Clientes</a>
+        <a href="/servicios" class="btn btn-primary col m-2">Servicios</a>
+        <a href="/pagos" class="btn btn-primary col m-2">Pagos</a>
+        <a href="/programas" class="btn btn-primary col m-2">Programas</a>
+        <a href="/facturas" class="btn btn-primary col m-2">Facturas</a>
+    </div>
+</div>
 
+<div th:replace="fragments/pie_pagina :: pie"></div>
 </body>
 </html>

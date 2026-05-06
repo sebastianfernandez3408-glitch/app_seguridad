@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
+<head>
+    <title>Login</title>
+</head>
+<body class="container mt-5">
 
-<h2>Login</h2>
-
-<div th:if="${error}" th:text="${error}"></div>
+<h2>Iniciar Sesión</h2>
 
 <form th:action="@{/login}" method="post">
-    <input name="username" placeholder="Usuario"/>
-    <input type="password" name="password" placeholder="Contraseña"/>
-    <button type="submit">Entrar</button>
+    <input type="text" name="username" placeholder="Usuario" class="form-control mb-2">
+    <input type="password" name="password" placeholder="Contraseña" class="form-control mb-2">
+    <button class="btn btn-primary">Entrar</button>
 </form>
+
+<p th:if="${mensajeError}" th:text="${mensajeError}" class="text-danger"></p>
 
 </body>
 </html>

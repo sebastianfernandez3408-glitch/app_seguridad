@@ -1,53 +1,52 @@
 package com.seguridad.app_seguridad.controlador;
 
-import java.io.InputStream;
-
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.seguridad.app_seguridad.modelo.entidad.Factura;
 import com.seguridad.app_seguridad.modelo.servicio.FacturaServicio;
-import com.seguridad.app_seguridad.modelo.servicio.PdfFacturaServicio;
 
 @Controller
 @RequestMapping("/facturas")
 public class FacturaControlador {
 
-    private final FacturaServicio facturaServicio;
-    private final PdfFacturaServicio pdfServicio;
+    @Autowired
+    private FacturaServicio facturaServicio;
 
-    public FacturaControlador(FacturaServicio facturaServicio,
-                              PdfFacturaServicio pdfServicio) {
-        this.facturaServicio = facturaServicio;
-        this.pdfServicio = pdfServicio;
-    }
-
-    //  LISTAR FACTURAS
     @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("facturas", facturaServicio.listar());
-        return "facturas/lista";
+    public String verFacturas(Model modelo) {
+        modelo.addAttribute("facturas", facturaServicio.obtenerTodos());
+        return "factura/ver";
     }
 
-    //  GENERAR PDF
-    @GetMapping("/pdf/{id}")
-    public ResponseEntity<InputStreamResource> generarPdf(@PathVariable Long id) {
+    @GetMapping("/nuevo")
+    public String nuevaFactura(Model modelo) {
+        modelo.addAttribute("factura", new Factura());
+        return "factura/form";
+    }
 
-        Factura factura = facturaServicio.buscarPorId(id)
-                .orElseThrow(() -> new RuntimeException("Factura no encontrada"));
+    @PostMapping("/guardar")
+    public String guardarFactura(@ModelAttribute Factura factura) {
+        facturaServicio.guardar(factura);
+        return "redirect:/facturas";
+    }
 
-        InputStream pdf = pdfServicio.generarFactura(factura);
+    @GetMapping("/editar/{id}")
+    public String editarFactura(@PathVariable Long id, Model modelo) {
+        Factura factura = facturaServicio.obtenerPorId(id);
+        modelo.addAttribute("factura", factura);
+        return "factura/form";
+    }
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=factura.pdf")
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(pdf));
+    @GetMapping("/eliminar/{id}")
+    public String eliminarFactura(@PathVariable Long id) {
+        facturaServicio.eliminar(id);
+        return "redirect:/facturas";
     }
 }

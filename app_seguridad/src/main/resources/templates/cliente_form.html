@@ -1,0 +1,12 @@
+<div class="container mt-4">
+    <h2>Formulario Cliente</h2>
+
+    <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
+        <input th:field="*{nombre}" class="form-control mb-2" placeholder="Nombre">
+        <input th:field="*{documento}" class="form-control mb-2" placeholder="Documento">
+        <input th:field="*{telefono}" class="form-control mb-2" placeholder="Teléfono">
+        <input th:field="*{email}" class="form-control mb-2" placeholder="Email">
+
+        <button class="btn btn-primary">Guardar</button>
+    </form>
+</div>

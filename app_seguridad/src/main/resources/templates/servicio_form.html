@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/encabezado :: encabezado"></head>
+<body>
+
+<div class="container mt-4">
+    <h2>Formulario Servicio</h2>
+
+    <form th:action="@{/servicios/guardar}" th:object="${servicio}" method="post">
+
+        <input type="hidden" th:field="*{id}">
+
+        <label>Nombre</label>
+        <input th:field="*{nombre}" class="form-control mb-2">
+
+        <label>Tipo</label>
+        <input th:field="*{tipo}" class="form-control mb-2">
+
+        <label>Ubicación</label>
+        <input th:field="*{ubicacion}" class="form-control mb-2">
+
+        <label>Precio</label>
+        <input type="number" step="0.01" th:field="*{precio}" class="form-control mb-2">
+
+        <label>Duración</label>
+        <input th:field="*{duracion}" class="form-control mb-2">
+
+        <label>Descripción</label>
+        <textarea th:field="*{descripcion}" class="form-control mb-2"></textarea>
+
+        <button class="btn btn-success">Guardar</button>
+        <a href="/servicios" class="btn btn-secondary">Cancelar</a>
+
+    </form>
+</div>
+
+<div th:replace="fragments/pie_pagina :: pie"></div>
+</body>
+</html>

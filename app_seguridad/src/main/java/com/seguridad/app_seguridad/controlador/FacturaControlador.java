@@ -1,5 +1,7 @@
 package com.seguridad.app_seguridad.controlador;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +23,23 @@ public class FacturaControlador {
 
     @GetMapping
     public String verFacturas(Model modelo) {
-        modelo.addAttribute("facturas", facturaServicio.obtenerTodos());
-        return "factura/ver";
+        try {
+            List<Factura> facturas = facturaServicio.obtenerTodos();
+            System.out.println("Facturas encontradas: " + facturas.size());
+            modelo.addAttribute("facturas", facturas);
+            return "facturas";
+        } catch (Exception e) {
+            System.out.println("Error en verFacturas: " + e.getMessage());
+            e.printStackTrace();
+            modelo.addAttribute("error", "Error al cargar facturas: " + e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/nuevo")
     public String nuevaFactura(Model modelo) {
         modelo.addAttribute("factura", new Factura());
-        return "factura/form";
+        return "factura_form";
     }
 
     @PostMapping("/guardar")
@@ -41,7 +52,7 @@ public class FacturaControlador {
     public String editarFactura(@PathVariable Long id, Model modelo) {
         Factura factura = facturaServicio.obtenerPorId(id);
         modelo.addAttribute("factura", factura);
-        return "factura/form";
+        return "factura_form";
     }
 
     @GetMapping("/eliminar/{id}")

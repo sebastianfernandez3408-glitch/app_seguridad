@@ -4,7 +4,7 @@
 <body>
 
 <div class="container mt-4">
-    <h2>Bienvenido <span th:text="${usuario.username}"></span></h2>
+    <h2>Bienvenido <span th:text="${usuario.username}"></span> (<span th:text="${usuario.rol}"></span>)</h2>
 
     <div class="row mt-4">
         <a href="/clientes" class="btn btn-primary col m-2">Clientes</a>

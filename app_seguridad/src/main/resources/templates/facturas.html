@@ -1,21 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/encabezado :: encabezado}"></head>
+<body>
+
 <div class="container mt-4">
     <h2>Facturas</h2>
 
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Total</th>
-            <th>PDF</th>
-        </tr>
+    <a href="/facturas/nuevo" class="btn btn-primary mb-3">Nueva Factura</a>
 
-        <tr th:each="f : ${facturas}">
-            <td th:text="${f.id}"></td>
-            <td th:text="${f.total}"></td>
-            <td>
-                <a th:href="@{/facturas/pdf/{id}(id=${f.id})}" class="btn btn-danger">
-                    Descargar PDF
-                </a>
-            </td>
-        </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="f : ${facturas}">
+                <td th:text="${f.id}"></td>
+                <td th:text="${f.fecha}"></td>
+                <td th:text="${f.total}"></td>
+                <td>
+                    <a th:href="@{/facturas/editar/{id}(id=${f.id})}" class="btn btn-warning btn-sm">Editar</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>
+
+<div th:replace="~{fragmentos/pie_pagina :: pie}"></div>
+</body>
+</html>

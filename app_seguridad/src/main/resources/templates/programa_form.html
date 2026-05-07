@@ -22,7 +22,6 @@
         <label>Costo</label>
         <input type="number" step="0.01" th:field="*{costo}" class="form-control mb-2">
 
-        <!-- IMPORTANTE: instructor (si ya lo tienes como relación) -->
         <label>Instructor</label>
         <select th:field="*{instructor}" class="form-control mb-2">
             <option th:each="i : ${instructores}" 

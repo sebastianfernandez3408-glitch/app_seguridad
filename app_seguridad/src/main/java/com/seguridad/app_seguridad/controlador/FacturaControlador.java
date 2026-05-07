@@ -3,6 +3,9 @@ package com.seguridad.app_seguridad.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.seguridad.app_seguridad.modelo.entidad.Factura;
 import com.seguridad.app_seguridad.modelo.servicio.FacturaServicio;
+import com.seguridad.app_seguridad.util.PdfGenerator;
 
 @Controller
 @RequestMapping("/facturas")
@@ -20,6 +24,9 @@ public class FacturaControlador {
 
     @Autowired
     private FacturaServicio facturaServicio;
+
+    @Autowired
+    private PdfGenerator pdfGenerator;
 
     @GetMapping
     public String verFacturas(Model modelo) {
@@ -59,5 +66,23 @@ public class FacturaControlador {
     public String eliminarFactura(@PathVariable Long id) {
         facturaServicio.eliminar(id);
         return "redirect:/facturas";
+    }
+
+    @GetMapping("/descargar/{id}")
+    public ResponseEntity<byte[]> descargarFacturaPdf(@PathVariable Long id) {
+        Factura factura = facturaServicio.obtenerPorId(id);
+        if (factura == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        byte[] pdfBytes = pdfGenerator.generarFacturaPdf(factura);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "factura_" + id + ".pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdfBytes);
     }
 }

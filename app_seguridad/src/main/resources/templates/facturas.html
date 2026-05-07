@@ -24,6 +24,7 @@
                 <td th:text="${f.total}"></td>
                 <td>
                     <a th:href="@{/facturas/editar/{id}(id=${f.id})}" class="btn btn-warning btn-sm">Editar</a>
+                    <a th:href="@{/facturas/descargar/{id}(id=${f.id})}" class="btn btn-info btn-sm" target="_blank">Descargar PDF</a>
                 </td>
             </tr>
         </tbody>

@@ -9,7 +9,7 @@ import com.lowagie.text.pdf.*;
 import com.seguridad.app_seguridad.modelo.entidad.Factura;
 
 @Service
-public class FacturaPdfServicio {
+public class PdfGenerator {
 
     public byte[] generarFacturaPdf(Factura factura) {
 

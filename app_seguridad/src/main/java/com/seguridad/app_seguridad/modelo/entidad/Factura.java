@@ -20,7 +20,7 @@ public class Factura {
 	@Column(nullable = false)
 	private double total;
 
-@	Column(nullable = false)
+	@Column(nullable = false)
 	private java.time.LocalDate fecha;
 
     @ManyToOne

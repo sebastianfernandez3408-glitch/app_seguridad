@@ -22,7 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * │ /contrataciones/**  │  ✅   │  ❌  │
  * │ /pagos/**           │  ✅   │  ❌  │
  * │ /programas/**       │  ✅   │  ❌  │
- * │ /facturas/**        │  ✅   │  ❌  │
+ * │ /facturas/**        │  ✅   │  ✅  │
  * │ /h2-console/**      │  ✅   │  ❌  │
  * └─────────────────────┴───────┴──────┘
  */
@@ -39,15 +39,7 @@ public class SecurityConfig {
                 // ========== RUTAS PARA USUARIOS AUTENTICADOS (ADMIN + USER) ==========
                 .requestMatchers("/panel").authenticated()
                 .requestMatchers("/perfil").authenticated()
-                
-                // ========== RUTAS SOLO PARA ADMIN ==========
-                .requestMatchers("/clientes/**").hasRole("ADMIN")
-                .requestMatchers("/servicios/**").hasRole("ADMIN")
-                .requestMatchers("/contrataciones/**").hasRole("ADMIN")
-                .requestMatchers("/pagos/**").hasRole("ADMIN")
-                .requestMatchers("/programas/**").hasRole("ADMIN")
-                .requestMatchers("/facturas/**").hasRole("ADMIN")
-                .requestMatchers("/h2-console/**").hasRole("ADMIN")
+                .requestMatchers("/facturas/**").authenticated()
                 
                 // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()

@@ -8,12 +8,13 @@
 <h2>Iniciar Sesión</h2>
 
 <form th:action="@{/login}" method="post">
-    <input type="text" name="username" placeholder="Usuario" class="form-control mb-2">
-    <input type="password" name="password" placeholder="Contraseña" class="form-control mb-2">
+    <input type="text" name="username" placeholder="Usuario" class="form-control mb-2" required>
+    <input type="password" name="password" placeholder="Contraseña" class="form-control mb-2" required>
     <button class="btn btn-primary">Entrar</button>
 </form>
 
-<p th:if="${mensajeError}" th:text="${mensajeError}" class="text-danger"></p>
+<p th:if="${param.error}" class="text-danger">Credenciales inválidas. Intenta de nuevo.</p>
+<p th:if="${param.logout}" class="text-success">Has cerrado sesión correctamente.</p>
 
 </body>
 </html>

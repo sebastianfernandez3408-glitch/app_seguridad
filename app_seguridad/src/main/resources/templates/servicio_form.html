@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/encabezado :: encabezado"></head>
+<head th:replace="~{fragmentos/encabezado :: encabezado}"></head>
 <body>
 
 <div class="container mt-4">
@@ -34,6 +34,6 @@
     </form>
 </div>
 
-<div th:replace="fragments/pie_pagina :: pie"></div>
+<div th:replace="~{fragmentos/pie_pagina :: pie}"></div>
 </body>
 </html>

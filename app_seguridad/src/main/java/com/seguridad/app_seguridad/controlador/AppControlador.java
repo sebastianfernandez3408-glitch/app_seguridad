@@ -24,20 +24,11 @@ public class AppControlador {
 
     // 🏠 PANEL
     @GetMapping("/panel")
-    public String panel() {
+    public String panel(Principal principal, Model model) {
+        Usuario usuario = usuarioServicio.obtenerUsuarioPorUsername(principal.getName());
+        model.addAttribute("usuario", usuario);
         return "panel";
     }
 
-    // 👤 PERFIL
-    @GetMapping("/perfil")
-    public String perfil(Principal principal, Model model) {
 
-        if (principal != null) {
-            String username = principal.getName();
-            Usuario usuario = usuarioServicio.obtenerUsuarioPorUsername(username);
-            model.addAttribute("usuario", usuario);
-        }
-
-        return "perfil";
-    }
 }

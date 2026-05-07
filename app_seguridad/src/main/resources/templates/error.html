@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/encabezado :: encabezado}"></head>
+<body>
+
+<div class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+        <h2>Error <span th:text="${estado}"></span></h2>
+        <p th:text="${mensaje}"></p>
+        <p><strong>Ruta:</strong> <span th:text="${ruta}"></span></p>
+        <p th:text="${detalles}"></p>
+        <a href="/panel" class="btn btn-primary mt-3">Volver al panel</a>
+    </div>
+</div>
+
+<div th:replace="~{fragmentos/pie_pagina :: pie}"></div>
+</body>
+</html>

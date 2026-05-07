@@ -11,24 +11,17 @@ import com.seguridad.app_seguridad.modelo.entidad.Usuario;
 import com.seguridad.app_seguridad.modelo.servicio.UsuarioServicio;
 
 @Controller
-public class AppControlador {
+public class PerfilControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    // 🔐 LOGIN
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
+    @GetMapping("/perfil")
+    public String perfil(Principal principal, Model model) {
 
-    // 🏠 PANEL
-    @GetMapping("/panel")
-    public String panel(Principal principal, Model model) {
         Usuario usuario = usuarioServicio.obtenerUsuarioPorUsername(principal.getName());
         model.addAttribute("usuario", usuario);
-        return "panel";
+
+        return "perfil";
     }
-
-
 }

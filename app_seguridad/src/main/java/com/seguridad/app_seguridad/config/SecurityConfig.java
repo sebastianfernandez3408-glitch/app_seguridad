@@ -34,12 +34,15 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // ========== RUTAS PÚBLICAS ==========
-                .requestMatchers("/login", "/css/**", "/style.css", "/js/**").permitAll()
+                .requestMatchers("/login", "/css/**", "/style.css", "/js/**", "/error").permitAll()
                 
                 // ========== RUTAS PARA USUARIOS AUTENTICADOS (ADMIN + USER) ==========
-                .requestMatchers("/panel").authenticated()
-                .requestMatchers("/perfil").authenticated()
-                .requestMatchers("/facturas/**").authenticated()
+                .requestMatchers("/panel", "/perfil", "/facturas/**").authenticated()
+                
+                // ========== RUTAS SOLO PARA ADMIN ==========
+                .requestMatchers("/clientes/**", "/servicios/**", "/contrataciones/**", 
+                                "/pagos/**", "/programas/**", "/instructores/**", 
+                                "/h2-console/**").hasRole("ADMIN")
                 
                 // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()
@@ -50,6 +53,7 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout(logout -> logout
+                .logoutSuccessUrl("/login")
                 .permitAll()
             );
 

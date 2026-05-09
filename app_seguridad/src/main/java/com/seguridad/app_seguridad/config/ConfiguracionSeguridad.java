@@ -21,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * │ /servicios/**       │  ✅   │  ❌  │
  * │ /contrataciones/**  │  ✅   │  ❌  │
  * │ /pagos/**           │  ✅   │  ❌  │
- * │ /programas/**       │  ✅   │  ❌  │
+ * │ /programas/**       │  ✅   │  ✅  │
  * │ /instructores/**    │  ✅   │  ❌  │
  * │ /facturas/**        │  ✅   │  ✅  │
  * │ /h2-console/**      │  ✅   │  ❌  │
@@ -50,13 +50,12 @@ public class ConfiguracionSeguridad {
                         "/servicios/**",
                         "/contrataciones/**",
                         "/pagos/**",
-                        "/programas/**",
                         "/instructores/**",
                         "/h2-console/**"
                 ).hasRole("ADMIN")
 
-                // RUTAS PARA ADMIN Y USER (Descargar facturas)
-                .requestMatchers("/facturas/**").hasAnyRole("ADMIN", "USER")
+                // RUTAS PARA ADMIN Y USER (Ver programas y facturas)
+                .requestMatchers("/programas/**", "/facturas/**").hasAnyRole("ADMIN", "USER")
 
                 // RUTAS PARA ADMIN Y USER
                 .requestMatchers(

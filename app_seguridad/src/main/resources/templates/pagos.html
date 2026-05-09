@@ -1,10 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragmentos/encabezado :: encabezado}"></head>
+<body>
+
 <div class="container mt-4">
     <h2>Pagos</h2>
 
+    <a href="/pagos/nuevo" class="btn btn-success mb-3" sec:authorize="hasRole('ADMIN')">Nuevo</a>
+
     <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Contratación</th>
+            <th>Monto</th>
+            <th>Método</th>
+            <th>Fecha</th>
+            <th sec:authorize="hasRole('ADMIN')">Acciones</th>
+        </tr>
+
         <tr th:each="p : ${pagos}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.cliente.nombre}"></td>
+            <td th:text="${p.contratacion.servicio.nombre}"></td>
             <td th:text="${p.monto}"></td>
             <td th:text="${p.metodo}"></td>
+            <td th:text="${p.fecha}"></td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/pagos/editar/{id}(id=${p.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/pagos/eliminar/{id}(id=${p.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar pago?')">Eliminar</a>
+            </td>
         </tr>
     </table>
 </div>
+
+<div th:replace="~{fragmentos/pie_pagina :: pie}"></div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/encabezado :: encabezado}"></head>
+<body>
+
+<div class="container mt-4">
+    <h2>Formulario Contratación</h2>
+
+    <form th:action="@{/contrataciones/guardar}" th:object="${contratacion}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+            <label>Cliente</label>
+            <select th:field="*{cliente}" class="form-control">
+                <option value="">Seleccionar Cliente</option>
+                <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Servicio</label>
+            <select th:field="*{servicio}" class="form-control">
+                <option value="">Seleccionar Servicio</option>
+                <option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Estado</label>
+            <select th:field="*{estado}" class="form-control">
+                <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Fecha</label>
+            <input th:field="*{fecha}" type="date" class="form-control">
+        </div>
+
+        <button class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+
+<div th:replace="~{fragmentos/pie_pagina :: pie}"></div>
+</body>
+</html>

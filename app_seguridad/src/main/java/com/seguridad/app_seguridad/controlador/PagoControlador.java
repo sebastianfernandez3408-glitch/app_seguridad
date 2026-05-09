@@ -37,9 +37,9 @@ public class PagoControlador {
         return "redirect:/pagos";
     }
 
-    @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Long id) {
-        pagoServicio.eliminar(id);
-        return "redirect:/pagos";
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        model.addAttribute("pago", pagoServicio.buscarPorId(id).orElse(null));
+        return "pago_form";
     }
 }

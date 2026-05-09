@@ -1,9 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragmentos/encabezado :: encabezado}"></head>
+<body>
+
 <div class="container mt-4">
     <h2>Programas</h2>
 
+    <a href="/programas/nuevo" class="btn btn-success mb-3" sec:authorize="hasRole('ADMIN')">Nuevo</a>
+
     <table class="table">
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Duración</th>
+            <th>Costo</th>
+            <th>Instructor</th>
+            <th sec:authorize="hasRole('ADMIN')">Acciones</th>
+        </tr>
+
         <tr th:each="p : ${programas}">
             <td th:text="${p.nombre}"></td>
+            <td th:text="${p.descripcion}"></td>
+            <td th:text="${p.duracion}"></td>
+            <td th:text="${p.costo}"></td>
+            <td th:text="${p.instructor.nombre}"></td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/programas/editar/{id}(id=${p.id})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/programas/eliminar/{id}(id=${p.id})}" class="btn btn-danger">Eliminar</a>
+            </td>
         </tr>
     </table>
 </div>
+
+<div th:replace="~{fragmentos/pie_pagina :: pie}"></div>
+</body>
+</html>

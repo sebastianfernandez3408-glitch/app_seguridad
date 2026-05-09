@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragmentos/encabezado :: encabezado}"></head>
 <body>
 
 <div class="container mt-4">
     <h2>Facturas</h2>
 
-    <a href="/facturas/nuevo" class="btn btn-primary mb-3">Nueva Factura</a>
+    <a href="/facturas/nuevo" class="btn btn-primary mb-3" sec:authorize="hasRole('ADMIN')">Nueva Factura</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Cliente</th>
                 <th>Fecha</th>
                 <th>Total</th>
                 <th>Acciones</th>
@@ -20,10 +21,12 @@
         <tbody>
             <tr th:each="f : ${facturas}">
                 <td th:text="${f.id}"></td>
+                <td th:text="${f.cliente.nombre}"></td>
                 <td th:text="${f.fecha}"></td>
                 <td th:text="${f.total}"></td>
                 <td>
-                    <a th:href="@{/facturas/editar/{id}(id=${f.id})}" class="btn btn-warning btn-sm">Editar</a>
+                    <a th:href="@{/facturas/editar/{id}(id=${f.id})}" class="btn btn-warning btn-sm" sec:authorize="hasRole('ADMIN')">Editar</a>
+                    <a th:href="@{/facturas/eliminar/{id}(id=${f.id})}" class="btn btn-danger btn-sm" sec:authorize="hasRole('ADMIN')" onclick="return confirm('¿Eliminar factura?')">Eliminar</a>
                     <a th:href="@{/facturas/descargar/{id}(id=${f.id})}" class="btn btn-info btn-sm" target="_blank">Descargar PDF</a>
                 </td>
             </tr>

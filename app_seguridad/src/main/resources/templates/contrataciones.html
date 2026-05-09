@@ -1,20 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragmentos/encabezado :: encabezado}"></head>
 <body>
 
 <div class="container mt-4">
     <h2>Contrataciones</h2>
 
+    <a href="/contrataciones/nuevo" class="btn btn-success mb-3" sec:authorize="hasRole('ADMIN')">Nueva Contratación</a>
+
     <table class="table">
         <tr>
             <th>ID</th>
+            <th>Cliente</th>
+            <th>Servicio</th>
+            <th>Estado</th>
             <th>Fecha</th>
+            <th sec:authorize="hasRole('ADMIN')">Acciones</th>
         </tr>
 
         <tr th:each="c : ${contrataciones}">
             <td th:text="${c.id}"></td>
+            <td th:text="${c.cliente.nombre}"></td>
+            <td th:text="${c.servicio.nombre}"></td>
+            <td th:text="${c.estado}"></td>
             <td th:text="${c.fecha}"></td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/contrataciones/editar/{id}(id=${c.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/contrataciones/eliminar/{id}(id=${c.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar contratación?')">Eliminar</a>
+            </td>
         </tr>
     </table>
 </div>

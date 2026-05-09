@@ -7,12 +7,13 @@
     <h2>Bienvenido <span th:text="${usuario.username}"></span> (<span th:text="${usuario.rol}"></span>)</h2>
 
     <div class="row mt-4">
-        <a href="/clientes" class="btn btn-primary col m-2">Clientes</a>
-        <a href="/servicios" class="btn btn-primary col m-2">Servicios</a>
-        <a href="/pagos" class="btn btn-primary col m-2">Pagos</a>
+        <a href="/clientes" class="btn btn-primary col m-2" th:if="${usuario.rol.name() == 'ROLE_ADMIN'}">Clientes</a>
+        <a href="/servicios" class="btn btn-primary col m-2" th:if="${usuario.rol.name() == 'ROLE_ADMIN'}">Servicios</a>
+        <a href="/pagos" class="btn btn-primary col m-2" th:if="${usuario.rol.name() == 'ROLE_ADMIN'}">Pagos</a>
         <a href="/programas" class="btn btn-primary col m-2">Programas</a>
         <a href="/facturas" class="btn btn-primary col m-2">Facturas</a>
-        <a href="/instructores" class="btn btn-primary col m-2">Instructores</a>
+        <a href="/instructores" class="btn btn-primary col m-2" th:if="${usuario.rol.name() == 'ROLE_ADMIN'}">Instructores</a>
+        <a href="/contrataciones" class="btn btn-primary col m-2" th:if="${usuario.rol.name() == 'ROLE_ADMIN'}">Contrataciones</a>
     </div>
 </div>
 

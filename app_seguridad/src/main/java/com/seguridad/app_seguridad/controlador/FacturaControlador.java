@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.seguridad.app_seguridad.modelo.entidad.Factura;
+import com.seguridad.app_seguridad.modelo.servicio.EmailService;
 import com.seguridad.app_seguridad.modelo.servicio.FacturaServicio;
 import com.seguridad.app_seguridad.util.PdfGenerator;
 
@@ -27,6 +29,9 @@ public class FacturaControlador {
 
     @Autowired
     private PdfGenerator pdfGenerator;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping
     public String verFacturas(Model modelo) {
@@ -84,5 +89,22 @@ public class FacturaControlador {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(pdfBytes);
+    }
+
+    @PostMapping("/{id}/enviar")
+    public ResponseEntity<String> enviarFacturaPorCorreo(@PathVariable Long id,
+                                                         @RequestParam String destinatario) {
+        try {
+            Factura factura = facturaServicio.obtenerPorId(id);
+            byte[] pdfBytes = pdfGenerator.generarFacturaPdf(factura);
+            String nombreArchivo = "factura_" + id + ".pdf";
+            String asunto = "Factura #" + id;
+            String cuerpo = "Adjunto encontrarás tu factura en formato PDF.";
+
+            emailService.enviarFacturaPdf(destinatario, asunto, cuerpo, pdfBytes, nombreArchivo);
+            return ResponseEntity.ok("Factura enviada correctamente a " + destinatario);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al enviar factura: " + e.getMessage());
+        }
     }
 }

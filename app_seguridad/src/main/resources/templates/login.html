@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
-<body class="container mt-5">
 
-<h2>Iniciar Sesión</h2>
-
-<form th:action="@{/login}" method="post">
-    <input type="text" name="username" placeholder="Usuario" class="form-control mb-2" required>
-    <input type="password" name="password" placeholder="Contraseña" class="form-control mb-2" required>
-    <button class="btn btn-primary">Entrar</button>
-</form>
-
-<p th:if="${param.error}" class="text-danger">Credenciales inválidas. Intenta de nuevo.</p>
-<p th:if="${param.logout}" class="text-success">Has cerrado sesión correctamente.</p>
-
+<body>
+<section>
+    <div class="form-box">
+        <div class="form-value">
+            <form th:action="@{/login}" method="post">
+                <h2>Iniciar Sesión</h2>
+                <div class="inputbox">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" name="username" required>
+                    <label>Usuario</label>
+                </div>
+                <div class="inputbox">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" name="password" required>
+                    <label>Contraseña</label>
+                </div>
+                <button type="submit">Entrar</button>
+                <div class="register">
+                    <p th:if="${param.error}">
+                        Credenciales inválidas. Intenta de nuevo.
+                    </p>
+                    <p th:if="${param.logout}">
+                        Has cerrado sesión correctamente.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

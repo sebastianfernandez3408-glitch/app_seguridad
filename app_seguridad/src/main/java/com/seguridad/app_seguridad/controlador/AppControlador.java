@@ -16,13 +16,13 @@ public class AppControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    // 🔐 LOGIN
+    // LOGIN
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
-    // 🏠 PANEL
+    //PANEL
     @GetMapping("/panel")
     public String panel(Principal principal, Model model) {
         Usuario usuario = usuarioServicio.obtenerUsuarioPorUsername(principal.getName());

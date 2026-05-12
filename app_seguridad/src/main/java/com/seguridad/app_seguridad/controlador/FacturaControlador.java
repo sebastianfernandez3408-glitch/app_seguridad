@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seguridad.app_seguridad.modelo.entidad.Factura;
 import com.seguridad.app_seguridad.modelo.servicio.EmailService;
@@ -92,8 +93,9 @@ public class FacturaControlador {
     }
 
     @PostMapping("/{id}/enviar")
-    public ResponseEntity<String> enviarFacturaPorCorreo(@PathVariable Long id,
-                                                         @RequestParam String destinatario) {
+    public String enviarFacturaPorCorreo(@PathVariable Long id,
+                                         @RequestParam String destinatario,
+                                         RedirectAttributes redirectAttributes) {
         try {
             Factura factura = facturaServicio.obtenerPorId(id);
             byte[] pdfBytes = pdfGenerator.generarFacturaPdf(factura);
@@ -102,9 +104,10 @@ public class FacturaControlador {
             String cuerpo = "Adjunto encontrarás tu factura en formato PDF.";
 
             emailService.enviarFacturaPdf(destinatario, asunto, cuerpo, pdfBytes, nombreArchivo);
-            return ResponseEntity.ok("Factura enviada correctamente a " + destinatario);
+            redirectAttributes.addFlashAttribute("success", "Factura enviada correctamente a " + destinatario);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al enviar factura: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("error", "Error al enviar factura: " + e.getMessage());
         }
+        return "redirect:/facturas";
     }
 }

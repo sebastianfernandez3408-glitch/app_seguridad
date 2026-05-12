@@ -6,6 +6,9 @@
 <div class="container mt-4">
     <h2>Facturas</h2>
 
+    <div th:if="${success}" class="alert alert-success" role="alert" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+
     <a href="/facturas/nuevo" class="btn btn-primary mb-3" sec:authorize="hasRole('ADMIN')">Nueva Factura</a>
 
     <table class="table">
@@ -28,6 +31,10 @@
                     <a th:href="@{/facturas/editar/{id}(id=${f.id})}" class="btn btn-warning btn-sm" sec:authorize="hasRole('ADMIN')">Editar</a>
                     <a th:href="@{/facturas/eliminar/{id}(id=${f.id})}" class="btn btn-danger btn-sm" sec:authorize="hasRole('ADMIN')" onclick="return confirm('¿Eliminar factura?')">Eliminar</a>
                     <a th:href="@{/facturas/descargar/{id}(id=${f.id})}" class="btn btn-info btn-sm" target="_blank">Descargar PDF</a>
+                    <form th:action="@{/facturas/{id}/enviar(id=${f.id})}" th:method="post" class="d-inline-flex align-items-center">
+                        <input type="email" name="destinatario" placeholder="Correo destinatario" required class="form-control form-control-sm me-1" style="width:220px;" />
+                        <button type="submit" class="btn btn-success btn-sm">Enviar</button>
+                    </form>
                 </td>
             </tr>
         </tbody>
